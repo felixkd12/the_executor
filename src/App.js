@@ -1,20 +1,52 @@
 import style from './App.module.css';
+import {useState} from "react"
 
-function App() {
-  const planets = [
-    { name: "Mars", isGasPlanet: false},
-    { name: "Earth", isGasPlanet: false},
-    { name: "Jupiter", isGasPlanet: true},
-    { name: "Venus", isGasPlanet: false},
-    { name: "Neptune", isGasPlanet: true},
-    { name: "Uranus", isGasPlanet: true} 
-]
+// Learn States
+
+/* 
+Dalam React untuk komponen UI hanya di render 1 kali.
+*/
+
+/* function App() {
+  const [showText, setShowText] = useState(true)
+  const [textColor, setTextColor] = useState("black")
+
+  const changeText = () => {
+    setShowText(!showText);
+    setTextColor(textColor === "black" ? "black" : "red");
+
+  };
 
   return (
     <div className={style.App}>
-      {planets.map(
-        (planets, key) => planets.isGasPlanet && <h1> {planets.name} </h1>
-      )}
+      <button onClick={changeText}> Show/Hide </button>
+      {showText === true && <h1 style={{color: textColor}}> Heloo, my name is Felix </h1>}
+    </div>
+  );
+} */
+
+function App() {
+  // Exercise 
+  const [count, setCount] = useState(0);
+
+  const increaseCount = () => {
+    setCount(count + 1);
+  }
+
+  const decreaseCount = () => {
+    setCount(count - 1);
+  }
+
+  const zeroCount = () => {
+    setCount(0);
+  }
+
+  return (
+    <div className={style.App}>
+      <button onClick = {increaseCount} > Increase </button>
+      <button onClick = {decreaseCount}> Decrease </button>
+      <button onClick = {zeroCount}> Set to Zero </button>
+      {count}
     </div>
   );
 }
