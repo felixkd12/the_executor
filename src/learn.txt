@@ -129,3 +129,40 @@ function App() {
     </div>
   );
 }
+
+React Lifecycle & Hook useEffect
+
+function App() {
+
+  const [showText, setShowText] = useState(false);
+
+  return (
+    <div className={style.App}>
+      <button
+        onClick={() => {
+          setShowText(!showText);
+        }}> Show Text </button>
+      {showText && <Text />}
+    </div>
+  );
+}
+
+Mounting = munculnya sebuah component
+Updating = mengubah sebuah component
+Unmountain = menghilangkan sebuah component
+
+useEffect sebuah hook yang akan mengontrol state pada component yang digunakan (mounting/unmountaining)
+salah satu kegunaan useEffect ketika meload sebuah web page dan mengambil data dari API
+
+useEffect () => untuk meload component yang digunakan untuk mengambil dari API
+return () => untuk menghentikan request dari server 
+
+Fetch Data from API in Reactjs
+
+"react-scripts --openssl-legacy-provider start" 
+
+Axios 
+
+api.agify.io/?name=jessica
+
+excuser.herokuapp.com

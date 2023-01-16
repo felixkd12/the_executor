@@ -1,135 +1,40 @@
 import style from './App.module.css';
-import { useState } from "react";
-import { Task } from './Task';
-
-// Learn States
-
-/* 
-Dalam React untuk komponen UI hanya di render 1 kali.
-*/
-
-/* function App() {
-  const [showText, setShowText] = useState(true)
-  const [textColor, setTextColor] = useState("black")
-
-  const changeText = () => {
-    setShowText(!showText);
-    setTextColor(textColor === "black" ? "black" : "red");
-
-  };
-
-  return (
-    <div className={style.App}>
-      <button onClick={changeText}> Show/Hide </button>
-      {showText === true && <h1 style={{color: textColor}}> Heloo, my name is Felix </h1>}
-    </div>
-  );
-} */
-
-/* function App() {
-  // Exercise 
-  const [count, setCount] = useState(0);
-
-  const increaseCount = () => {
-    setCount(count + 1);
-  }
-
-  const decreaseCount = () => {
-    setCount(count - 1);
-  }
-
-  const zeroCount = () => {
-    setCount(0);
-  }
-
-  return (
-    <div className={style.App}>
-      <button onClick = {increaseCount} > Increase </button>
-      <button onClick = {decreaseCount}> Decrease </button>
-      <button onClick = {zeroCount}> Set to Zero </button>
-      {count}
-    </div>
-  );
-}
-*/
+import { useState, useEffect } from "react";
+import { Text } from "./Text";
+import React from "react";
+import Axios from 'axios';
 
 function App() {
 
-  // Learn CRUD and Array or List
-  const [doList, setDoList] = useState([]);
-  const [newTask, setNewTask] = useState("");
+  const [name, setName] = useState("");
+  const [predictedAge, setPredictedAge] = useState({});
 
-  const handleChange = (event) => {
-    setNewTask(event.target.value);
+  const fetchData = () => {
+    Axios.get(`https://api.agify.io/?name=${name}`).then((res) => {
+      setPredictedAge(res.data);
+    });
   }
-
-  const addTask = () => {
-    // '...' menandakan membuat array kosong dan parameter kedua adalah valuenya
-    // Objek
-    const task = {
-      id: doList.length === 0 ? 1 : doList[doList.length - 1].id + 1,
-      taskName: newTask,
-      completed: false
-    }
-
-    const newTodoList = [...doList, task];
-    setDoList(newTodoList);
+  /* const fetchCatFact = () => {
+    Axios.get("https://catfact.ninja/fact").then((res) => {
+      setcatText(res.data.fact);
+    });
   }
-
-  // Exercise Update
-  const updateTask = (id) => {
-    setDoList(doList.map((task) => {
-      if (task.id === id){
-        return {...task, completed: true};
-      } else {
-        return task;
-      }
-    }));
-  }
-  const deleteTask = (id) => {
-
-    // Cara 1
-    /*const newTodoList = doList.filter((task) => {
-      if (task === taskName) {
-        return false;
-      } else {
-        return true;
-      }
-    }); */
-
-    // Cara 2
-    // mempersingkat if else 
-    /*const newTodoList = doList.filter((task) => {
-      return task !== taskName;
-    }); */
-    // setDoList(newTodoList);
-
-    //Cara 3
-    setDoList(doList.filter((task) => task.id !== id));
-  }
+  useEffect(() => {
+    fetchCatFact();
+  }, []);
+  */
 
   return (
     <div className={style.App}>
-      <div className={style.Header}>
-        <div className={style.Input}>
-          <input style={{ margin: 10 }} onChange={handleChange} />
-          <button onClick={addTask}> Add Task </button>
-        </div>
-      </div>
+      <input placeholder="Felix"
+      onChange={(event) => {
+        setName(event.target.value);
+      }} />
+      <button onClick={fetchData}> Predict Age </button>
 
-
-      {doList.map((task) => {
-        return (
-          <div className={style.List}>
-            <Task
-              taskName={task.taskName}
-              id={task.id}
-              completed={task.completed}
-              deleteTask={deleteTask}
-              updateTask={updateTask} />
-          </div>
-        )
-      })}
+      <h1> Predicted Name: {predictedAge.name} </h1>
+      <h1> Predicted Age: {predictedAge.age} </h1>
+      <h1> Predicted Count: {predictedAge.count} </h1>
     </div>
   );
 }
