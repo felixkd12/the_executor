@@ -1,5 +1,6 @@
 import style from './App.module.css';
-import {useState} from "react"
+import { useState } from "react";
+import { Task } from './Task';
 
 // Learn States
 
@@ -50,7 +51,7 @@ Dalam React untuk komponen UI hanya di render 1 kali.
     </div>
   );
 }
-*/ 
+*/
 
 function App() {
 
@@ -64,14 +65,27 @@ function App() {
 
   const addTask = () => {
     // '...' menandakan membuat array kosong dan parameter kedua adalah valuenya
+    // Objek
     const task = {
-      id: doList.length === 0 ? 1 : doList[doList.length -1].id + 1,
-      taskName: newTask
+      id: doList.length === 0 ? 1 : doList[doList.length - 1].id + 1,
+      taskName: newTask,
+      completed: false
     }
+
     const newTodoList = [...doList, task];
-    setDoList(newTodoList); 
+    setDoList(newTodoList);
   }
 
+  // Exercise Update
+  const updateTask = (id) => {
+    setDoList(doList.map((task) => {
+      if (task.id === id){
+        return {...task, completed: true};
+      } else {
+        return task;
+      }
+    }));
+  }
   const deleteTask = (id) => {
 
     // Cara 1
@@ -82,35 +96,40 @@ function App() {
         return true;
       }
     }); */
-    
+
     // Cara 2
     // mempersingkat if else 
     /*const newTodoList = doList.filter((task) => {
       return task !== taskName;
-    }); */ 
+    }); */
     // setDoList(newTodoList);
-    
+
     //Cara 3
     setDoList(doList.filter((task) => task.id !== id));
   }
 
   return (
     <div className={style.App}>
-      <div className="addTask">
-        <input onChange={handleChange}/>
-        <button onClick={addTask}> Add Task </button>
+      <div className={style.Header}>
+        <div className={style.Input}>
+          <input style={{ margin: 10 }} onChange={handleChange} />
+          <button onClick={addTask}> Add Task </button>
+        </div>
       </div>
 
-      <div className="list">
-        {doList.map((task) =>{
-          return (
-            <div>
-              <h1> {task.taskName} </h1>
-              {/* Untuk fungsi yang memiliki parameter */}
-              <button onClick={() => deleteTask(task.id)}> X </button>
-            </div>
-        )})}
-      </div>
+
+      {doList.map((task) => {
+        return (
+          <div className={style.List}>
+            <Task
+              taskName={task.taskName}
+              id={task.id}
+              completed={task.completed}
+              deleteTask={deleteTask}
+              updateTask={updateTask} />
+          </div>
+        )
+      })}
     </div>
   );
 }

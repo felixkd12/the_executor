@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,8 +35,23 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
 
 .name {
   color: #61dafb;
+}
+
+.Header {
+  background-color: aqua;
+  padding: 100px;
+}
+
+.Input{
+  text-align: center;
+  
+}
+
+.List{
+  text-align: center;
+  padding: 5px;
 }
