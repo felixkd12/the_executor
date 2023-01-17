@@ -223,3 +223,5 @@ React js DOM
 State Management, useHook Content
 
 - prop drilling = parsing sebuah props pada komponent, namun digunakan pada compoenent lainnya
+- Create context = membuat grop components
+- .Provider = yang akan menyediakan data ke dalam komponent
