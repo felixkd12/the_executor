@@ -166,3 +166,57 @@ Axios
 api.agify.io/?name=jessica
 
 excuser.herokuapp.com
+
+    <div className={style.App}>
+      <input placeholder="Felix"
+      onChange={(event) => {
+        setName(event.target.value);
+      }} />
+      <button onClick={fetchData}> Predict Age </button>
+
+      <h1> Predicted Name: {predictedAge.name} </h1>
+      <h1> Predicted Age: {predictedAge.age} </h1>
+      <h1> Predicted Count: {predictedAge.count} </h1>
+    </div>
+
+      /* const fetchCatFact = () => {
+    Axios.get("https://catfact.ninja/fact").then((res) => {
+      setcatText(res.data.fact);
+    });
+  }
+  useEffect(() => {
+    fetchCatFact();
+  }, []);
+  */
+
+    const [name, setName] = useState("");
+  const [predictedAge, setPredictedAge] = useState({});
+
+  const fetchData = () => {
+    Axios.get(`https://api.agify.io/?name=${name}`).then((res) => {
+      setPredictedAge(res.data);
+    });
+  }
+
+React js DOM
+
+- npm install react-router-dom
+- Router = yang akan membuat link sebuah component
+- Routes = yang akan menyambungkan component dan router
+- Route = sebuah component yang memiliki path 
+
+    <div className={style.App}>
+      <Router>
+        <div> 
+          <Link to="/"> Home </Link>
+          <Link to="/contact"> Contact </Link>
+          <Link to="/menu"> Menu </Link>
+        </div>
+        <Routes>
+          <Route path="/" element ={<Home/>} />
+          <Route path="/menu" element ={<Menu/>} />
+          <Route path="/contact" element ={<Contact/>} />
+        </Routes>
+      </Router>
+    </div>
+
