@@ -220,3 +220,6 @@ React js DOM
       </Router>
     </div>
 
+State Management, useHook Content
+
+- prop drilling = parsing sebuah props pada komponent, namun digunakan pada compoenent lainnya
